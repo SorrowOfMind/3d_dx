@@ -51,7 +51,7 @@ bool Window::Init()
         wnd = this;
     
     s_hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"WindowClass", L"No name yet", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT,
-        CW_USEDEFAULT, 1024, 768, NULL, NULL, NULL, NULL);
+        CW_USEDEFAULT, 1024, 768, NULL, NULL, NULL, this);
 
     if (!s_hwnd)
         return false;
@@ -92,6 +92,11 @@ bool Window::Broadcast()
 bool Window::IsRunning()
 {
     return s_isRunning;
+}
+
+void Window::OnCreate()
+{
+    s_isRunning = true;
 }
 
 void Window::OnDestroy()
