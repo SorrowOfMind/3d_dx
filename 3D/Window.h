@@ -19,8 +19,8 @@ public:
 	~Window();
 
 protected:
-	HWND s_hwnd;
-	bool s_isRunning;
+	HWND m_hwnd;
+	bool m_isRunning;
 
 };
 

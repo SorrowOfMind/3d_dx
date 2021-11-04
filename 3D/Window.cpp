@@ -6,7 +6,7 @@ Window::Window()
 {
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, size_t msg, WPARAM wparam, LPARAM lparam)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
     switch (msg)
     {
@@ -18,7 +18,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, size_t msg, WPARAM wparam, LPARAM lparam)
     case WM_DESTROY:
     {
         wnd->OnDestroy();
-        ::PostQuitMessage(0);
+        PostQuitMessage(0);
         break;
     }
     default:
@@ -44,29 +44,29 @@ bool Window::Init()
     wc.style = NULL;
     wc.lpfnWndProc = &WndProc;
 
-    if (!::RegisterClassEx(&wc))
+    if (!RegisterClassEx(&wc))
         return false;
 
     if (!wnd)
         wnd = this;
     
-    s_hwnd = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"WindowClass", L"No name yet", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT,
+    m_hwnd = CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, L"WindowClass", L"No name yet", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT,
         CW_USEDEFAULT, 1024, 768, NULL, NULL, NULL, this);
 
-    if (!s_hwnd)
+    if (!m_hwnd)
         return false;
 
-    ::ShowWindow(s_hwnd, SW_SHOW);
-    ::UpdateWindow(s_hwnd);
+    ShowWindow(m_hwnd, SW_SHOW);
+    UpdateWindow(m_hwnd);
     
-    s_isRunning = true;
+    m_isRunning = true;
 
     return true;
 }
 
 bool Window::Release()
 {
-    if (!::DestroyWindow(s_hwnd))
+    if (!DestroyWindow(m_hwnd))
         return false;
        
 
@@ -76,7 +76,7 @@ bool Window::Release()
 bool Window::Broadcast()
 {
     MSG msg;
-    while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0)
+    while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) > 0)
     {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
@@ -91,17 +91,17 @@ bool Window::Broadcast()
 
 bool Window::IsRunning()
 {
-    return s_isRunning;
+    return m_isRunning;
 }
 
 void Window::OnCreate()
 {
-    s_isRunning = true;
+    m_isRunning = true;
 }
 
 void Window::OnDestroy()
 {
-    s_isRunning = false;
+    m_isRunning = false;
 }
 
 Window::~Window()

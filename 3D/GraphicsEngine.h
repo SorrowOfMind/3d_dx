@@ -15,8 +15,11 @@ public:
 	static GraphicsEngine* Get();
 
 private:
-	ID3D11Device* s_d3dDevice;
-	D3D_FEATURE_LEVEL s_featureLevel;
-	ID3D11DeviceContext* s_immCtx;
+	ID3D11Device* m_d3dDevice; //swap chain
+	D3D_FEATURE_LEVEL m_featureLevel;
+	ID3D11DeviceContext* m_immCtx;
+	IDXGIDevice* m_dxgiDevice;
+	IDXGIAdapter* m_dxgiAdapter;
+	IDXGIFactory* m_dxgiFactory;
 };
 
