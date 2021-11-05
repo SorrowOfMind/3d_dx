@@ -16,6 +16,9 @@ public:
 	virtual void OnUpdate() = 0;
 	virtual void OnDestroy();
 
+	RECT GetClientWindowRect(); //internal size of the wnd
+	void SetHWND(HWND hwnd);
+
 	~Window();
 
 protected:
