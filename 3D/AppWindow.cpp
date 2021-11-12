@@ -22,6 +22,9 @@ void AppWindow::OnCreate()
 
 void AppWindow::OnUpdate()
 {
+	Window::OnUpdate();
+	m_GE->GetImmediateDeviceContext()->ClearRenderTargetColor(m_SwapChain, 0, 0.5, 1, 1);
+	m_SwapChain->Present(false);
 }
 
 void AppWindow::OnDestroy()

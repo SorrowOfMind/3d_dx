@@ -1,5 +1,6 @@
 #include "GraphicsEngine.h"
 #include "SwapChain.h"
+#include "DeviceContext.h"
 
 GraphicsEngine::GraphicsEngine()
 {
@@ -34,6 +35,8 @@ bool GraphicsEngine::Init()
     if (FAILED(res))
         return false;
 
+    m_immDeviceContext = new DeviceContext(m_immCtx);
+
     //swap chain
     m_d3dDevice->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&m_dxgiDevice));
     m_dxgiDevice->GetParent(__uuidof(IDXGIAdapter), reinterpret_cast<void**>(&m_dxgiAdapter));
@@ -45,11 +48,13 @@ bool GraphicsEngine::Init()
 bool GraphicsEngine::Release()
 {
     m_immCtx->Release();
-    m_d3dDevice->Release();
 
     m_dxgiDevice->Release();
     m_dxgiAdapter->Release();
     m_dxgiFactory->Release();
+
+    m_immDeviceContext->Release();
+    m_d3dDevice->Release();
 
     return true;
 }
@@ -67,4 +72,9 @@ GraphicsEngine* GraphicsEngine::Get()
 SwapChain* GraphicsEngine::CreateSwapChain()
 {
     return new SwapChain();
+}
+
+DeviceContext* GraphicsEngine::GetImmediateDeviceContext()
+{
+    return m_immDeviceContext;
 }

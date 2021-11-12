@@ -12,14 +12,14 @@ public:
 	bool Broadcast();
 	bool IsRunning();
 
-	virtual void OnCreate() = 0;
-	virtual void OnUpdate() = 0;
+	virtual void OnCreate();
+	virtual void OnUpdate();
 	virtual void OnDestroy();
 
 	RECT GetClientWindowRect(); //internal size of the wnd
 	void SetHWND(HWND hwnd);
 
-	~Window();
+	virtual ~Window();
 
 protected:
 	HWND m_hwnd;

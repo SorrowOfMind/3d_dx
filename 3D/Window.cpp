@@ -77,13 +77,14 @@ bool Window::Release()
 bool Window::Broadcast()
 {
     MSG msg;
+
+    wnd->OnUpdate();
+
     while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE) > 0)
     {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
-
-    wnd->OnUpdate();
 
     Sleep(0);
 
@@ -98,6 +99,10 @@ bool Window::IsRunning()
 void Window::OnCreate()
 {
     m_isRunning = true;
+}
+
+void Window::OnUpdate()
+{
 }
 
 void Window::OnDestroy()

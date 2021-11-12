@@ -2,6 +2,7 @@
 #include <d3d11.h> //remember to link d3d11.lib --> linker/input!!
 
 class SwapChain;
+class DeviceContext;
 
 class GraphicsEngine
 {
@@ -18,7 +19,10 @@ public:
 
 public:
 	SwapChain* CreateSwapChain();
+	DeviceContext* GetImmediateDeviceContext();
 
+private:
+	DeviceContext* m_immDeviceContext;
 private:
 	ID3D11Device* m_d3dDevice; //swap chain
 	D3D_FEATURE_LEVEL m_featureLevel;
